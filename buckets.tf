@@ -64,15 +64,7 @@ resource "aws_s3_bucket_replication_configuration" "ca_central_to_us_west" {
   rule {
     id = "foobar"
 
-    filter {
-      prefix = "foo"
-    }
-
     status = "Enabled"
-
-    delete_marker_replication {
-      status = "Enabled"
-    }
 
     destination {
       bucket        = aws_s3_bucket.us_west.arn
@@ -95,15 +87,7 @@ resource "aws_s3_bucket_replication_configuration" "us_west_to_ca_central" {
   rule {
     id = "foobar"
 
-    filter {
-      prefix = "foo"
-    }
-
     status = "Enabled"
-
-    delete_marker_replication {
-      status = "Enabled"
-    }
 
     destination {
       bucket        = aws_s3_bucket.ca_central.arn
