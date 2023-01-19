@@ -53,7 +53,10 @@ resource "aws_s3_bucket_versioning" "us_west" {
 
 resource "aws_s3_bucket_replication_configuration" "ca_central_to_us_west" {
   # Must have bucket versioning enabled first
-  depends_on = [aws_s3_bucket_versioning.ca_central]
+  depends_on = [
+    aws_s3_bucket_versioning.ca_central,
+    aws_s3_bucket_versioning.us_west
+  ]
 
   role   = aws_iam_role.ca_central_replication.arn
   bucket = aws_s3_bucket.ca_central.id
@@ -81,7 +84,10 @@ resource "aws_s3_bucket_replication_configuration" "ca_central_to_us_west" {
 resource "aws_s3_bucket_replication_configuration" "us_west_to_ca_central" {
   provider = aws.uswest
   # Must have bucket versioning enabled first
-  depends_on = [aws_s3_bucket_versioning.us_west]
+  depends_on = [
+    aws_s3_bucket_versioning.ca_central,
+    aws_s3_bucket_versioning.us_west
+  ]
 
   role   = aws_iam_role.us_west_replication.arn
   bucket = aws_s3_bucket.us_west.id
