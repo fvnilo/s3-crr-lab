@@ -10,7 +10,7 @@ module "s3" {
     }
 
     bucket_name = local.bucket_name
-    
+
     enable_replication = true
     bidirectional_replication = true
 }
